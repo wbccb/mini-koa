@@ -27,3 +27,6 @@ pnpm-debug.log*
 *.sln
 *.sw?
 temp.*
+
+docs/.vitepress/dist
+docs/.vitepress/cache
