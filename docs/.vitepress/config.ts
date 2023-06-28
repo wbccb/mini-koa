@@ -14,7 +14,8 @@ export default defineConfig({
       {
         text: '基础用法',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
+          { text: '快速开始', link: '/1-base/quick-start' },
+          { text: '路由', link: '/1-base/router' },
         ]
       },
       {

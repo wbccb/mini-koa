@@ -1,0 +1,15 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "2-base_koa-router.js",
+  "scripts": {
+    "debug": "node --inspect 2-base_koa-router.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.14.2",
+    "koa-router": "^12.0.0"
+  }
+}
