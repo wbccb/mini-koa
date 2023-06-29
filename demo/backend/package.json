@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "busboy": "^1.6.0",
     "koa": "^2.14.2",
     "koa-bodyparser": "^4.4.1",
     "koa-mysql-session": "^0.0.2",
