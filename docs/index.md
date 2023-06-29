@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: 正文内容
-      link: /1-base/quick-start
+      link: /1-base/1-quick-start
 
 features:
   - title: Koa2基础知识总结

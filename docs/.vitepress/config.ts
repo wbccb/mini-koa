@@ -14,8 +14,12 @@ export default defineConfig({
       {
         text: '基础用法',
         items: [
-          { text: '快速开始', link: '/1-base/quick-start' },
-          { text: '路由', link: '/1-base/router' },
+          { text: '快速开始', link: '/1-base/1-quick-start' },
+          { text: '路由', link: '/1-base/2-router' },
+          { text: '参数解析', link: '/1-base/3-bodyparser' },
+          { text: '静态资源', link: '/1-base/4-static' },
+          { text: 'cookie', link: '/1-base/5-cookie' },
+          { text: '文件', link: '/1-base/6-file' },
         ]
       },
       {
