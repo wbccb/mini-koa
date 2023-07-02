@@ -31,14 +31,14 @@ $ pm2 web             // 监控所有被pm2管理的进程
 ```
 
 ## docs
-### 0.base
+### 1-base
 `Koa2`基础知识总结
 
-### 1.source
+### 2-source
 
 `Koa2`源码分析文章
 
-### 2.interview
+### 3-interview
 
 `Koa2`常见的面试题，从面试题更加深入理解`Koa2`
 
