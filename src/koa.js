@@ -1,6 +1,7 @@
 const context = require("./context.js");
 const request = require("./request.js");
 const response = require("./response.js");
+const http = require("http");
 
 function compose(middleware) {
   if (!Array.isArray(middleware)) throw new TypeError("Middleware stack must be an array!");
@@ -11,6 +12,7 @@ function compose(middleware) {
   return function (context, next) {
     // 要求每一个fn返回都是一个Promise
     let index = -1;
+
     function dispatch(i) {
       if (i <= index) {
         return Promise.reject(new Error("next()重复调用多次"));
@@ -33,6 +35,7 @@ function compose(middleware) {
         return Promise.reject(err);
       }
     }
+
     return dispatch(0);
   };
 }
@@ -82,15 +85,28 @@ class Koa {
     const next = function () {
       console.log("最后一个next()!");
     };
+    const handleResponse = () => {
+      return this.handleResponse(context);
+    };
     fn(context, next)
-      .then(() => {
-        // 正常执行最终触发
-        console.log("fn执行完毕!");
-        context.res.end("执行完毕");
-      })
+      .then(handleResponse)
       .catch((error) => {
         console.error("fn执行错误", error);
       });
+  }
+
+  handleResponse(ctx) {
+    const res = ctx.res;
+    let body = ctx.body;
+    if (!body) {
+      return res.end();
+    }
+
+    if (typeof body !== "string") {
+      body = JSON.stringify(body);
+    }
+
+    res.end(body);
   }
 }
 
@@ -98,13 +114,13 @@ const app = new Koa();
 app.use(async (ctx, next) => {
   console.log("fn1执行业务逻辑1");
   await next();
-  await next();
   console.log("fn1执行业务逻辑2");
+  ctx.body = "mini-koa!!";
 });
 app.use(async (ctx, next) => {
   console.log("fn2执行业务逻辑1");
   await next();
   console.log("fn2执行业务逻辑2");
 });
-app.listen(200);
-console.log("koa listen 200");
+app.listen(2001);
+console.log("koa listen 2001");
