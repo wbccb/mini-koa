@@ -3,6 +3,7 @@ const request = require("./request.js");
 const response = require("./response.js");
 const http = require("http");
 const Router = require("./middleware/koa-router.js");
+const BodyParser = require("./middleware/koa-bodyparser.js");
 
 function compose(middleware) {
   if (!Array.isArray(middleware)) throw new TypeError("Middleware stack must be an array!");
@@ -113,6 +114,8 @@ class Koa {
 
 const app = new Koa();
 
+app.use(new BodyParser());
+
 const router = new Router();
 router.get("/test", (ctx, next) => {
   // ctx.router available
@@ -122,6 +125,31 @@ router.get("/home", (ctx, next) => {
   // ctx.router available
   ctx.body = "home页面";
 });
+router.get("/form", async (ctx) => {
+  let html = `
+      <h1>koa2 request post demo</h1>
+      <form method="POST" action="/b">
+        <p>userName</p>
+        <input name="userName" /><br/>
+        <p>nickName</p>
+        <input name="nickName" /><br/>
+        <p>email</p>
+        <input name="email" /><br/>
+        <button type="submit">submit</button>
+      </form>
+    `;
+  ctx.body = html;
+});
+router.post("/b", async (ctx) => {
+  debugger;
+  // 普通解析逻辑
+  // const body = await parseRequestPostData(ctx);
+  // ctx.body = body;
+
+  // 使用koa-bodyparser会自动解析表单的数据然后放在ctx.request.body中
+  let postData = ctx.request.body;
+  ctx.body = postData;
+});
 console.log(router);
 app.use(router.routes());
 
@@ -129,7 +157,6 @@ app.use(async (ctx, next) => {
   console.log("fn1执行业务逻辑1");
   await next();
   console.log("fn1执行业务逻辑2");
-  ctx.body = "mini-koa!!";
 });
 app.use(async (ctx, next) => {
   console.log("fn2执行业务逻辑1");
