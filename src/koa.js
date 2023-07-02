@@ -2,6 +2,7 @@ const context = require("./context.js");
 const request = require("./request.js");
 const response = require("./response.js");
 const http = require("http");
+const Router = require("./middleware/koa-router.js");
 
 function compose(middleware) {
   if (!Array.isArray(middleware)) throw new TypeError("Middleware stack must be an array!");
@@ -111,6 +112,19 @@ class Koa {
 }
 
 const app = new Koa();
+
+const router = new Router();
+router.get("/test", (ctx, next) => {
+  // ctx.router available
+  ctx.body = "test页面";
+});
+router.get("/home", (ctx, next) => {
+  // ctx.router available
+  ctx.body = "home页面";
+});
+console.log(router);
+app.use(router.routes());
+
 app.use(async (ctx, next) => {
   console.log("fn1执行业务逻辑1");
   await next();
