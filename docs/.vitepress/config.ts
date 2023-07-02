@@ -4,6 +4,7 @@ import {defineConfig} from "vitepress";
 export default defineConfig({
   title: "mini-koa2",
   description: "koa2电子书",
+  base: "/mini-koa2/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [{text: "Home", link: "/"}],
